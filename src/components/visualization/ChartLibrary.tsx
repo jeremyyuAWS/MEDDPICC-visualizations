@@ -16,14 +16,14 @@ const ChartLibrary: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'bar' | 'line' | 'pie' | 'column' | 'area' | 'donut' | 'radar'>('bar');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
-  const [fullscreenChart, setFullscreenChart] = useState<string | null>(null);
+  const [fullscreenChart, setFullscreenChart] = useState<number | null>(null);
   const [showDataTable, setShowDataTable] = useState(false);
   const [filterType, setFilterType] = useState<'all' | 'finance' | 'technology' | 'healthcare' | 'sales'>('all');
   
   // Handle keyboard events for Escape key to exit fullscreen
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && fullscreenChart) {
+      if (e.key === 'Escape' && fullscreenChart !== null) {
         setFullscreenChart(null);
       }
     };
@@ -56,15 +56,16 @@ const ChartLibrary: React.FC = () => {
   const charts = getChartsByType();
   
   // Filter charts by search term and filter type if provided
-  const filteredCharts = Object.entries(charts).filter(([id, chart]) => {
+  const filteredCharts = Object.values(charts).filter((chart) => {
     // Apply search filter
     if (searchTerm) {
       const lowerSearch = searchTerm.toLowerCase();
-      const matchesSearch = chart.chartData.title.toLowerCase().includes(lowerSearch) ||
-             chart.insight.toLowerCase().includes(lowerSearch) ||
-             chart.chartData.subtitle?.toLowerCase().includes(lowerSearch) ||
-             chart.chartData.x.some(label => label.toLowerCase().includes(lowerSearch));
-      
+      const matchesSearch = chart.chartData && (
+        (chart.chartData.title && chart.chartData.title.toLowerCase().includes(lowerSearch)) ||
+        chart.insight.toLowerCase().includes(lowerSearch) ||
+        (chart.chartData.subtitle && chart.chartData.subtitle.toLowerCase().includes(lowerSearch)) ||
+        (Array.isArray(chart.chartData.x) && chart.chartData.x.some(label => label && label.toLowerCase().includes(lowerSearch)))
+      );
       if (!matchesSearch) return false;
     }
     
@@ -106,10 +107,9 @@ const ChartLibrary: React.FC = () => {
 
   // Fullscreen chart modal
   const FullscreenChartModal = () => {
-    if (!fullscreenChart) return null;
-    
-    const chart = Object.entries(charts).find(([id]) => id === fullscreenChart)?.[1];
-    if (!chart) return null;
+    if (fullscreenChart === null) return null;
+    const chart = filteredCharts[fullscreenChart];
+    if (!chart || !chart.chartData) return null;
     
     return (
       <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4">
@@ -175,7 +175,7 @@ const ChartLibrary: React.FC = () => {
 
   return (
     <div className="bg-white rounded-lg p-4">
-      {fullscreenChart && <FullscreenChartModal />}
+      {fullscreenChart !== null && <FullscreenChartModal />}
       
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 space-y-4 md:space-y-0">
         <div className="flex items-center">
@@ -331,7 +331,7 @@ const ChartLibrary: React.FC = () => {
                     </div>
                     <div className="flex space-x-1">
                       <button
-                        onClick={() => setFullscreenChart(id)}
+                        onClick={() => setFullscreenChart(index)}
                         className="text-gray-400 hover:text-gray-700 p-1 rounded transition-colors"
                         title="View fullscreen"
                       >
@@ -361,7 +361,7 @@ const ChartLibrary: React.FC = () => {
                     </div>
                     <div className="flex space-x-2">
                       <button
-                        onClick={() => setFullscreenChart(id)}
+                        onClick={() => setFullscreenChart(index)}
                         className="text-xs text-gray-600 hover:text-black flex items-center"
                       >
                         Expand <ArrowRight className="h-3 w-3 ml-1" />
