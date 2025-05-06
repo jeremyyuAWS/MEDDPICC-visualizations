@@ -318,9 +318,9 @@ const ChartLibrary: React.FC = () => {
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            {filteredCharts.map(([id, chart], index) => (
+            {filteredCharts.map((chart, index) => (
               <div 
-                key={id} 
+                key={chart.chartData?.title || index} 
                 className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
               >
                 <div className="bg-gray-50 p-4 border-b border-gray-200">
@@ -338,9 +338,9 @@ const ChartLibrary: React.FC = () => {
                         <Maximize2 className="h-4 w-4" />
                       </button>
                       <button
-                        onClick={() => setSelectedTemplate(selectedTemplate === id ? null : id)}
+                        onClick={() => setSelectedTemplate(selectedTemplate === index.toString() ? null : index.toString())}
                         className={`text-gray-400 hover:text-gray-700 p-1 rounded transition-colors ${
-                          selectedTemplate === id ? 'text-blue-500 hover:text-blue-700' : ''
+                          selectedTemplate === index.toString() ? 'text-blue-500 hover:text-blue-700' : ''
                         }`}
                         title="Show details"
                       >
@@ -370,7 +370,7 @@ const ChartLibrary: React.FC = () => {
                   </div>
                 </div>
                 
-                {selectedTemplate === id && (
+                {selectedTemplate === index.toString() && (
                   <div className="p-4 border-t border-gray-200 bg-gray-50 animate-fadeDown">
                     <h4 className="font-medium text-sm mb-2">Full Insight:</h4>
                     <p className="text-sm text-gray-600 mb-3">{chart.insight}</p>
