@@ -51,6 +51,42 @@ export const barChartTemplates: Record<string, VisualizationResult> = {
       xAxisLabel: 'Security Metric',
       yAxisLabel: 'Improvement %'
     }
+  },
+  'ai_investment_returns': {
+    insight: "Organizations investing in AI see varying returns across different use cases, with customer service automation leading at 187% ROI and predictive maintenance following at 156%. Even the lowest-performing use cases show positive returns above 45%.",
+    chartType: 'Bar',
+    chartData: {
+      title: 'AI Investment Returns by Use Case',
+      subtitle: 'ROI percentage after 2 years',
+      x: ['Customer Service', 'Predictive Maintenance', 'Fraud Detection', 'Supply Chain', 'Quality Control', 'HR Automation'],
+      y: [187, 156, 142, 128, 98, 45],
+      xAxisLabel: 'Use Case',
+      yAxisLabel: 'ROI %'
+    }
+  },
+  'data_quality_impact': {
+    insight: "Data quality improvements directly correlate with AI model performance, with organizations achieving 92% accuracy in high-quality data environments compared to 67% in low-quality data scenarios.",
+    chartType: 'Bar',
+    chartData: {
+      title: 'AI Model Performance by Data Quality',
+      subtitle: 'Model accuracy percentage',
+      x: ['High Quality', 'Medium Quality', 'Low Quality', 'Unstructured', 'Historical', 'Real-time'],
+      y: [92, 85, 67, 78, 82, 88],
+      xAxisLabel: 'Data Quality Level',
+      yAxisLabel: 'Accuracy %'
+    }
+  },
+  'implementation_timeline': {
+    insight: "AI project implementation timelines vary significantly by complexity, with basic automation projects completing in 3-4 months while complex ML systems may take 12-18 months to fully deploy.",
+    chartType: 'Bar',
+    chartData: {
+      title: 'AI Project Implementation Timeline',
+      subtitle: 'Average duration in months',
+      x: ['Basic Automation', 'Data Analytics', 'ML Models', 'Deep Learning', 'Custom Solutions', 'Enterprise-wide'],
+      y: [3.5, 5.2, 8.7, 12.4, 15.8, 18.2],
+      xAxisLabel: 'Project Type',
+      yAxisLabel: 'Duration (Months)'
+    }
   }
 };
 
@@ -229,6 +265,42 @@ export const columnChartTemplates: Record<string, VisualizationResult> = {
       y: [47, 38, 31, 28, 25, 19],
       xAxisLabel: 'Function',
       yAxisLabel: 'Productivity Gain %'
+    }
+  },
+  'ai_talent_demand': {
+    insight: "The demand for AI talent has surged across industries, with machine learning engineers commanding the highest salaries at $156K average, followed by data scientists at $142K. Even entry-level AI roles show strong compensation above $85K.",
+    chartType: 'Column',
+    chartData: {
+      title: 'AI Talent Compensation by Role',
+      subtitle: 'Average annual salary in thousands USD',
+      x: ['ML Engineer', 'Data Scientist', 'AI Researcher', 'MLOps Engineer', 'AI Product Manager', 'Entry Level'],
+      y: [156, 142, 138, 132, 128, 85],
+      xAxisLabel: 'Role',
+      yAxisLabel: 'Salary ($K)'
+    }
+  },
+  'model_performance_metrics': {
+    insight: "AI model performance varies significantly across different metrics, with accuracy reaching 94% in image recognition but dropping to 78% in natural language understanding tasks.",
+    chartType: 'Column',
+    chartData: {
+      title: 'AI Model Performance by Task',
+      subtitle: 'Accuracy percentage across different tasks',
+      x: ['Image Recognition', 'Speech Recognition', 'Text Classification', 'Sentiment Analysis', 'Language Understanding', 'Recommendation'],
+      y: [94, 89, 85, 82, 78, 91],
+      xAxisLabel: 'Task Type',
+      yAxisLabel: 'Accuracy %'
+    }
+  },
+  'implementation_success': {
+    insight: "AI implementation success rates vary by industry, with technology companies achieving 87% success while healthcare organizations face more challenges at 62% success rate.",
+    chartType: 'Column',
+    chartData: {
+      title: 'AI Implementation Success Rate',
+      subtitle: 'Percentage of successful deployments',
+      x: ['Technology', 'Finance', 'Retail', 'Manufacturing', 'Healthcare', 'Education'],
+      y: [87, 82, 78, 75, 62, 68],
+      xAxisLabel: 'Industry',
+      yAxisLabel: 'Success Rate %'
     }
   }
 };
@@ -597,6 +669,148 @@ export const histogramTemplates: Record<string, VisualizationResult> = {
       y: [5, 8, 12, 17, 25, 25, 8],
       xAxisLabel: 'Accuracy Range',
       yAxisLabel: 'Percentage of Models'
+    }
+  }
+};
+
+// --- Additional chart types from screenshot ---
+
+export const coneFunnelTemplates: Record<string, VisualizationResult> = {
+  'sales_conversion_cone': {
+    insight: "Cone funnel visualization shows the narrowing of leads through the sales process, with the largest drop-off at the evaluation stage.",
+    chartType: 'Column', // Substitute for cone funnel
+    chartData: {
+      title: 'Sales Conversion Cone Funnel',
+      subtitle: 'Leads at each sales stage',
+      x: ['Awareness', 'Interest', 'Consideration', 'Evaluation', 'Purchase'],
+      y: [1000, 650, 400, 180, 90],
+      xAxisLabel: 'Stage',
+      yAxisLabel: 'Number of Leads'
+    }
+  }
+};
+
+export const pyramidTemplates: Record<string, VisualizationResult> = {
+  'org_hierarchy': {
+    insight: "Organizational pyramid shows the distribution of employees by level, with the largest group at the base and a small executive team at the top.",
+    chartType: 'Column', // Substitute for pyramid
+    chartData: {
+      title: 'Organizational Hierarchy Pyramid',
+      subtitle: 'Employee count by level',
+      x: ['Entry', 'Associate', 'Manager', 'Director', 'VP', 'C-Suite'],
+      y: [500, 200, 60, 20, 8, 2],
+      xAxisLabel: 'Level',
+      yAxisLabel: 'Employees'
+    }
+  }
+};
+
+export const radialGaugeTemplates: Record<string, VisualizationResult> = {
+  'system_health': {
+    insight: "Radial gauge shows current system health at 82%, indicating good but not perfect performance.",
+    chartType: 'Pie', // Substitute for radial gauge
+    chartData: {
+      title: 'System Health Gauge',
+      subtitle: 'Current health percentage',
+      x: ['Healthy', 'Warning', 'Critical'],
+      y: [82, 12, 6]
+    }
+  }
+};
+
+export const linearGaugeTemplates: Record<string, VisualizationResult> = {
+  'project_progress': {
+    insight: "Linear gauge shows project completion at 67%, with remaining work distributed across three phases.",
+    chartType: 'Pie', // Substitute for linear gauge
+    chartData: {
+      title: 'Project Progress Gauge',
+      subtitle: 'Completion and remaining phases',
+      x: ['Completed', 'Phase 2', 'Phase 3', 'Phase 4'],
+      y: [67, 15, 10, 8]
+    }
+  }
+};
+
+export const radialColumnTemplates: Record<string, VisualizationResult> = {
+  'department_performance': {
+    insight: "Radial column chart shows department performance scores, with Engineering leading and HR trailing.",
+    chartType: 'Column', // Substitute for radial column
+    chartData: {
+      title: 'Department Performance (Radial)',
+      subtitle: 'Performance score by department',
+      x: ['Engineering', 'Sales', 'Marketing', 'Finance', 'HR'],
+      y: [92, 85, 78, 74, 68],
+      xAxisLabel: 'Department',
+      yAxisLabel: 'Score'
+    }
+  }
+};
+
+export const radialBarTemplates: Record<string, VisualizationResult> = {
+  'market_share_radial': {
+    insight: "Radial bar chart shows market share distribution, with the top three companies holding 75% of the market.",
+    chartType: 'Bar', // Substitute for radial bar
+    chartData: {
+      title: 'Market Share (Radial)',
+      subtitle: 'Share by company',
+      x: ['Company A', 'Company B', 'Company C', 'Others'],
+      y: [32, 28, 15, 25],
+      xAxisLabel: 'Company',
+      yAxisLabel: 'Market Share %'
+    }
+  }
+};
+
+export const radarLineTemplates: Record<string, VisualizationResult> = {
+  'skills_assessment': {
+    insight: "Radar line chart shows employee skill assessment across six core competencies.",
+    chartType: 'Radar', // Substitute for radar line
+    chartData: {
+      title: 'Employee Skills Assessment',
+      subtitle: 'Score by competency',
+      x: ['Technical', 'Communication', 'Leadership', 'Creativity', 'Teamwork', 'Adaptability'],
+      y: [88, 76, 69, 82, 91, 77]
+    }
+  }
+};
+
+export const radarAreaTemplates: Record<string, VisualizationResult> = {
+  'product_features': {
+    insight: "Radar area chart shows product feature ratings, with security and usability scoring highest.",
+    chartType: 'Radar', // Substitute for radar area
+    chartData: {
+      title: 'Product Feature Ratings',
+      subtitle: 'Score by feature',
+      x: ['Security', 'Usability', 'Performance', 'Integration', 'Support', 'Cost'],
+      y: [92, 89, 84, 77, 80, 73]
+    }
+  }
+};
+
+export const rangeAreaTemplates: Record<string, VisualizationResult> = {
+  'temperature_variation': {
+    insight: "Range area chart shows temperature variation over a week, with the largest swing on Wednesday.",
+    chartType: 'Area', // Substitute for range area
+    chartData: {
+      title: 'Weekly Temperature Variation',
+      subtitle: 'High and low temperatures by day',
+      x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      y: [12, 15, 20, 18, 16, 14, 13],
+      xAxisLabel: 'Day',
+      yAxisLabel: 'Temperature (°C)'
+    }
+  }
+};
+
+export const sunburstTemplates: Record<string, VisualizationResult> = {
+  'company_structure': {
+    insight: "Sunburst chart shows company structure, with the largest segment in the engineering division.",
+    chartType: 'Pie', // Substitute for sunburst
+    chartData: {
+      title: 'Company Structure Sunburst',
+      subtitle: 'Employee count by division',
+      x: ['Engineering', 'Sales', 'Marketing', 'Support', 'HR', 'Other'],
+      y: [120, 80, 60, 40, 20, 10]
     }
   }
 };
