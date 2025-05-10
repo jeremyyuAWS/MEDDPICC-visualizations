@@ -59,6 +59,57 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ meddpiccAnalysi
   const [showResearch, setShowResearch] = useState(false);
   const [researchCategory, setResearchCategory] = useState<string | null>(null);
 
+  // Add prewritten demo scenarios
+  const demoScenarios = [
+    {
+      label: 'Cash-Flow Forecaster',
+      payload: {
+        topic: 'Cash-Flow Forecaster',
+        industry: 'Finance',
+        company: 'Demo Corp',
+        cloudProvider: '',
+        technologies: ['Treasury AI'],
+        painPoints: ['Liquidity gaps', 'Forecasting accuracy']
+      }
+    },
+    {
+      label: 'Liquidity Orchestrator',
+      payload: {
+        topic: 'Liquidity Orchestrator',
+        industry: 'Finance',
+        company: 'Demo Corp',
+        cloudProvider: '',
+        technologies: ['Treasury Automation'],
+        painPoints: ['Idle cash', 'Manual transfers']
+      }
+    },
+    {
+      label: 'AI Spend Optimizer',
+      payload: {
+        topic: 'AI Spend Optimizer',
+        industry: 'Technology',
+        company: 'Demo Corp',
+        cloudProvider: 'AWS',
+        technologies: ['Cloud Cost Management'],
+        painPoints: ['Cloud spend', 'Budget overruns']
+      }
+    },
+    {
+      label: 'Sales Pipeline Analyzer',
+      payload: {
+        topic: 'Sales Pipeline Analyzer',
+        industry: 'Sales',
+        company: 'Demo Corp',
+        cloudProvider: '',
+        technologies: ['CRM', 'Salesforce'],
+        painPoints: ['Pipeline visibility', 'Forecast accuracy']
+      }
+    }
+  ];
+
+  const [showDemoModal, setShowDemoModal] = useState(false);
+  const [activeDemo, setActiveDemo] = useState<string | null>(null);
+
   // Prefill form with MEDDPICC data if available
   useEffect(() => {
     if (meddpiccAnalysis) {
@@ -300,6 +351,26 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ meddpiccAnalysi
       return () => clearTimeout(timeout);
     }
   }, [isDemoMode, generateVisualization]);
+
+  // Handler for selecting a demo scenario
+  const handleDemoScenario = (scenario: typeof demoScenarios[0]) => {
+    setFormState(scenario.payload);
+    setActiveDemo(scenario.label);
+    generateVisualization(scenario.payload);
+  };
+
+  // Handler for resetting the demo
+  const handleResetDemo = () => {
+    setFormState({
+      industry: '',
+      cloudProvider: '',
+      company: '',
+      topic: '',
+      technologies: [],
+      painPoints: []
+    });
+    setActiveDemo(null);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -760,6 +831,45 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ meddpiccAnalysi
           )}
         </>
       )}
+
+      {/* Demo Scenario Modal */}
+      <div className={`fixed bottom-6 right-6 z-50 ${showDemoModal ? '' : 'pointer-events-none'}`}
+           style={{ transition: 'all 0.3s', opacity: showDemoModal ? 1 : 0.5 }}>
+        <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-4 min-w-[260px] max-w-xs">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-gray-700">Demo Scenarios</span>
+            <button onClick={() => setShowDemoModal(false)} className="text-gray-400 hover:text-gray-700 text-lg">×</button>
+          </div>
+          <div className="flex flex-wrap gap-2 mb-2">
+            {demoScenarios.map(scenario => (
+              <button
+                key={scenario.label}
+                onClick={() => handleDemoScenario(scenario)}
+                className={`px-3 py-1.5 text-xs rounded-md border transition-colors ${activeDemo === scenario.label ? 'bg-black text-white border-black' : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-100'}`}
+              >
+                {scenario.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={handleResetDemo}
+              className="text-xs text-gray-500 hover:text-black border border-gray-200 rounded px-2 py-1"
+              disabled={!activeDemo}
+            >
+              Reset Demo
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        className="fixed bottom-6 right-6 z-50 bg-black text-white rounded-full shadow-lg w-12 h-12 flex items-center justify-center hover:bg-gray-900 focus:outline-none"
+        style={{ display: showDemoModal ? 'none' : 'flex' }}
+        onClick={() => setShowDemoModal(true)}
+        title="Show Demo Scenarios"
+      >
+        <Brain className="h-6 w-6" />
+      </button>
     </div>
   );
 };
