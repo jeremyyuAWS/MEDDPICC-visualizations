@@ -326,6 +326,18 @@ export const columnChartTemplates: Record<string, VisualizationResult> = {
       xAxisLabel: 'Feature',
       yAxisLabel: 'Improvement % / Yield %'
     }
+  },
+  'working_capital_impact': {
+    insight: "AI-driven working capital analytics reduce days sales outstanding (DSO) by 18%, increase days payable outstanding (DPO) by 11%, and optimize inventory turnover by 22%, freeing up an average of $4.2M in liquidity for mid-size enterprises.",
+    chartType: 'Column',
+    chartData: {
+      title: 'Working Capital Impact from AI Analytics',
+      subtitle: 'Improvement by metric (2024)',
+      x: ['DSO Reduction', 'DPO Increase', 'Inventory Turnover', 'Liquidity Freed ($M)', 'Cash Conversion Cycle'],
+      y: [18, 11, 22, 4.2, -15],
+      xAxisLabel: 'Metric',
+      yAxisLabel: 'Improvement % / $M'
+    }
   }
 };
 
