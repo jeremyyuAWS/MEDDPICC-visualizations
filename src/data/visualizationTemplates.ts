@@ -302,6 +302,30 @@ export const columnChartTemplates: Record<string, VisualizationResult> = {
       xAxisLabel: 'Industry',
       yAxisLabel: 'Success Rate %'
     }
+  },
+  'cash_flow_forecaster': {
+    insight: "Cash-Flow Forecaster enables treasury teams to predict liquidity gaps up to 90 days in advance, reducing emergency borrowing by 63% and improving working capital efficiency.",
+    chartType: 'Column',
+    chartData: {
+      title: 'Cash-Flow Forecast Accuracy',
+      subtitle: 'Prediction window vs. accuracy',
+      x: ['7 Days', '14 Days', '30 Days', '60 Days', '90 Days'],
+      y: [98, 94, 89, 81, 74],
+      xAxisLabel: 'Prediction Window',
+      yAxisLabel: 'Forecast Accuracy %'
+    }
+  },
+  'liquidity_orchestrator': {
+    insight: "Liquidity Orchestrator automates fund transfers across accounts, reducing idle cash by 47% and increasing yield on surplus balances by 1.8% annually.",
+    chartType: 'Column',
+    chartData: {
+      title: 'Liquidity Optimization Impact',
+      subtitle: 'Improvement by automation feature',
+      x: ['Idle Cash Reduction', 'Yield Increase', 'Manual Transfers', 'Automated Sweeps', 'Overdraft Avoidance'],
+      y: [47, 1.8, 62, 88, 95],
+      xAxisLabel: 'Feature',
+      yAxisLabel: 'Improvement % / Yield %'
+    }
   }
 };
 

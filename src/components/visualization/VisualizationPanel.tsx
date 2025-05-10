@@ -274,6 +274,33 @@ const VisualizationPanel: React.FC<VisualizationPanelProps> = ({ meddpiccAnalysi
     return researchSummaries[researchCategory];
   };
 
+  // Add this after other useEffects, before the return statement
+  useEffect(() => {
+    if (isDemoMode) {
+      // Auto-play Cash-Flow Forecaster demo
+      generateVisualization({
+        topic: 'Cash-Flow Forecaster',
+        industry: 'Finance',
+        company: 'Demo Corp',
+        cloudProvider: '',
+        technologies: ['Treasury AI'],
+        painPoints: ['Liquidity gaps', 'Forecasting accuracy']
+      });
+      // Auto-play Liquidity Orchestrator demo after a delay
+      const timeout = setTimeout(() => {
+        generateVisualization({
+          topic: 'Liquidity Orchestrator',
+          industry: 'Finance',
+          company: 'Demo Corp',
+          cloudProvider: '',
+          technologies: ['Treasury Automation'],
+          painPoints: ['Idle cash', 'Manual transfers']
+        });
+      }, 4000); // 4 seconds after the first demo
+      return () => clearTimeout(timeout);
+    }
+  }, [isDemoMode, generateVisualization]);
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center justify-between mb-6">
